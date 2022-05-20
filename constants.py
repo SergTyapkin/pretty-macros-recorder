@@ -3,7 +3,7 @@ fileControlsNames = {
     "save_mouse_click":             'shift+2',
     "save_mouse_hold":              'shift+3',
     "save_mouse_release":           'shift+4',
-    "move_mouse_to_last_saved_pos": 'ctrl+shift!!@+1',
+    "move_mouse_to_last_saved_pos": 'ctrl+shift+1',
     "change_mouse_button":          'shift+=',
 
     "save_keyboard_hit":            'shift+5',
