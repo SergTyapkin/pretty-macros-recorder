@@ -1,20 +1,3 @@
-# actions = {
-#     'mouse': {
-#         'move': 'foo',
-#         'click': 'foo',
-#         'doubleClick': 'foo',
-#         'buttonDown': 'foo',
-#         'buttonUp': 'foo',
-#         'scroll': 'foo'
-#     },
-#     'keyboard': {
-#         'hit': 'foo',
-#         'keyDown': 'foo',
-#         'keyUp': 'foo',
-#         'text': 'foo',
-#     }
-# }
-
 fileControlsNames = {
     "save_mouse_position":          'shift+1',
     "save_mouse_click":             'shift+2',
