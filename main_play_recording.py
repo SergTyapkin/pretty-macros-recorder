@@ -72,6 +72,7 @@ if __name__ == '__main__':
             eY = event.get('y')
             eTimingFunc = event.get('timing-function')
             eButton = event.get('button')
+            eDelta = event.get('delta')
 
             mouseX, mouseY = mouse.get_position()
             if eType == 'move':
@@ -83,7 +84,7 @@ if __name__ == '__main__':
                 while progress < 1 and not stop:
                     modifier = movingFunc(progress)
                     mouse.move(mouseX + allDx * modifier, mouseY + allDy * modifier)
-                    newProgress = (time.time() - timeStart) / eDuration
+                    newProgress = 1 if eDuration == 0 else (time.time() - timeStart) / eDuration
                     progressDelta = newProgress - progress
                     progress = newProgress
                     time.sleep(FRAME_TIME)
@@ -98,6 +99,15 @@ if __name__ == '__main__':
             elif eType == 'release':
                 time.sleep(eAfter)
                 mouse.release(eButton)
+            elif eType == 'scroll':
+                time.sleep(eAfter)
+                frames = eDuration * FPS
+                wheelD = eDelta if eDuration == 0 else eDelta / frames
+                i = 0
+                while i < frames and not stop:
+                    mouse.wheel(wheelD)
+                    time.sleep(FRAME_TIME)
+                    i += 1
 
         elif eClass == 'keyboard':
             eText = event.get('text')

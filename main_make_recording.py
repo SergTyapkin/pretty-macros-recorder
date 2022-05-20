@@ -16,6 +16,7 @@ ignoreNextKeyboardEvent = False
 
 mouseButtons = [mouse.LEFT, mouse.MIDDLE, mouse.RIGHT]
 mouseButtonSelected = 0
+mouseScrollDelta = 0
 def change_mouse_button():
     global mouseButtonSelected
     mouseButtonSelected = (mouseButtonSelected + 1) % len(mouseButtons)
@@ -63,6 +64,26 @@ def save_mouse_release():
 def move_mouse_to_last_saved_pos():
     mouse.move(lastMousePos[0], lastMousePos[1])
     print("Mouse moved to las pos:", lastMousePos)
+scrollListenStartedAfter = None
+def start_stop_listen_scroll():
+    global scrollListenStartedAfter, mouseScrollDelta
+    if scrollListenStartedAfter is None:
+        print("Listening for scrolling...")
+        scrollListenStartedAfter = getEventTimeDelta()
+        mouseScrollDelta = 0
+        scrollListenStarted = True
+        return
+    duration = getEventTimeDelta()
+    recording.append({
+        'class': 'mouse',
+        'type': 'scroll',
+        'delta': mouseScrollDelta,
+        'duration': duration,
+        'after': scrollListenStartedAfter
+    })
+    print(f'Scroll delta={mouseScrollDelta}. After {scrollListenStartedAfter}, Time {duration:f}')
+    scrollListenStartedAfter = None
+    mouseScrollDelta = 0
 
 def _save_keyboard_event(name, hotkey):
     duration = getEventTimeDelta()
@@ -96,15 +117,16 @@ def save_keyboard_release(hotkey=None):
     _save_keyboard_event("release", hotkey)
 
 textTypeStartedAfter = None
-def start_text_typing_recording():
+def start_stop_text_typing_recording():
     global keyboardRecordType, recordedKeys, textTypeStartedAfter, ignoreNextKeyboardEvent
-    print("Start listening for typing text...")
-    keyboardRecordType = 'text'
-    textTypeStartedAfter = getEventTimeDelta()
-    ignoreNextKeyboardEvent = True
-    recordedKeys = []
-def stop_text_typing_recording():
-    global recordedKeys, textTypeStartedAfter
+    if textTypeStartedAfter is None:
+        print("Start listening for typing text...")
+        keyboardRecordType = 'text'
+        textTypeStartedAfter = getEventTimeDelta()
+        ignoreNextKeyboardEvent = True
+        recordedKeys = []
+        return
+
     duration = getEventTimeDelta()
     recording.append({
         'class': 'keyboard',
@@ -128,13 +150,13 @@ controlsFunctions = {
     "save_mouse_release": save_mouse_release,
     "move_mouse_to_last_saved_pos": move_mouse_to_last_saved_pos,
     "change_mouse_button": change_mouse_button,
+    "start_stop_listen_scroll": start_stop_listen_scroll,
 
     "save_keyboard_hit": save_keyboard_hit,
     "save_keyboard_hold": save_keyboard_hold,
     "save_keyboard_release": save_keyboard_release,
 
-    "start_text_typing_recording": start_text_typing_recording,
-    "stop_text_typing_recording": stop_text_typing_recording,
+    "start_stop_text_typing_recording": start_stop_text_typing_recording,
 
     "stop_recording": stop_recording,
 }
@@ -160,6 +182,14 @@ def onKeyboardEvent(event):
             recordHotkeyCallback = None
     elif keyboardRecordType == 'text':
         recordedKeys.append(event.name)
+
+
+def onMouseEvent(event):
+    global mouseScrollDelta
+    if not isinstance(event, mouse.WheelEvent):
+        return
+
+    mouseScrollDelta += event.delta
 
 
 def writeRecording(recording):
@@ -198,6 +228,7 @@ if __name__ == '__main__':
 
     # --- START LISTEN ---
     keyboard._listener.add_handler(onKeyboardEvent)
+    mouse._listener.add_handler(onMouseEvent)
     while not stop:
         try:
             time.sleep(1)

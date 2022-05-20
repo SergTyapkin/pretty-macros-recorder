@@ -50,7 +50,7 @@ python3 main_play_recording.py
     // For mouse events:
     {
         "class": "mouse",
-        "type": "move", // move / click / hold / release
+        "type": "move", // move / click / hold / release / scroll
         
         // only for "move":
         "x": -997, 
@@ -61,6 +61,11 @@ python3 main_play_recording.py
         // for "click / hold / release"
         "after": 3.5, // seconds
         "button": "left", // left / middle / right
+      
+        // for "scroll"
+        "after": 1.5, // seconds
+        "duration": 1.2, // seconds
+        "delta": -2.0, // scroll value
     },
   
     // For keyboard events:
