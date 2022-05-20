@@ -66,6 +66,8 @@ if __name__ == '__main__':
         eType = event['type']
         eDuration = event.get('duration')
         eAfter = event.get('after')
+        if eAfter:
+            time.sleep(eAfter)
 
         if eClass == 'mouse':
             eX = event.get('x')
@@ -91,16 +93,12 @@ if __name__ == '__main__':
                 mouse.move(eX, eY)
 
             elif eType == 'click':
-                time.sleep(eAfter)
                 mouse.click(eButton)
             elif eType == 'hold':
-                time.sleep(eAfter)
                 mouse.press(eButton)
             elif eType == 'release':
-                time.sleep(eAfter)
                 mouse.release(eButton)
             elif eType == 'scroll':
-                time.sleep(eAfter)
                 frames = eDuration * FPS
                 wheelD = eDelta if eDuration == 0 else eDelta / frames
                 i = 0
@@ -112,24 +110,20 @@ if __name__ == '__main__':
         elif eClass == 'keyboard':
             eText = event.get('text')
             eHotkey = event.get('hotkey')
+
             if eType == 'hit':
-                time.sleep(eAfter)
                 keyboard.send(eHotkey)
             elif eType == 'hold':
-                time.sleep(eAfter)
                 keyboard.press(eHotkey)
             elif eType == 'release':
-                time.sleep(eAfter)
                 keyboard.release(eHotkey)
             elif eType == 'text':
-                time.sleep(eAfter)
                 timeDelta = 0 if len(eText) == 0 else eDuration / len(eText)
                 i = 0
                 while i < len(eText) and not stop:
                     keyboard.send(eText[i])
                     i += 1
                     time.sleep(timeDelta)
-
 
         if stop:
             break

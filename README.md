@@ -51,7 +51,8 @@ python3 main_play_recording.py
     {
         "class": "mouse",
         "type": "move", // move / click / hold / release / scroll
-        
+        "after": 1.5, // seconds
+      
         // only for "move":
         "x": -997, 
         "y": -301,
@@ -59,11 +60,9 @@ python3 main_play_recording.py
         "duration": 2.5, // seconds
         
         // for "click / hold / release"
-        "after": 3.5, // seconds
         "button": "left", // left / middle / right
       
         // for "scroll"
-        "after": 1.5, // seconds
         "duration": 1.2, // seconds
         "delta": -2.0, // scroll value
     },
