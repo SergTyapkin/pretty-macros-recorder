@@ -201,7 +201,7 @@ def writeRecording(recording):
     if not os.path.isdir("recordings"):
         os.mkdir("recordings")
 
-    curTimeStr = time.strftime("%Y-%m-%d-_%H-%M-%S")
+    curTimeStr = time.strftime("%Y-%m-%d-%H-%M-%S")
     fileName = 'recordings/recording_' + curTimeStr + '.json'
     with open(fileName, 'w') as file:
         json.dump(recording, file, indent='\t')

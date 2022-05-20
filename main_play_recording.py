@@ -21,7 +21,10 @@ movingFuncs = {
 def readRecording(fileName):
     try:
         with open(fileName, 'r') as file:
-            return json.load(file)
+            try:
+                return json.load(file)
+            except Exception as e:
+                print("Error while parsing json:", e)
     except:
         print("File not exists")
         sys.exit()
@@ -50,6 +53,8 @@ if __name__ == '__main__':
         filename = 'recordings/' + filename
     print(f'Reading \"{filename}\"...')
     recording = readRecording(filename)
+    if recording is None:
+        sys.exit()
 
     # --- HANDLE CONTROLS ---
     print()
