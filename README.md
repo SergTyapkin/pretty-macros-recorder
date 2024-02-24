@@ -19,7 +19,7 @@ python -m pip install mouse
 
 После этого конфиг запишется в `UserControls.json`
 ```shell
-python3 main_controls_configure.py
+python main_controls_configure.py
 ```
 
 ### 2. Запустить запись
@@ -37,7 +37,7 @@ python3 main_controls_configure.py
 После этого json-файл с записью будет сохранён в папку `recordings`
 под названием `recording_<дата-и-время-окончания-записи>.json`
 ```shell
-python3 main_make_recording.py
+python main_make_recording.py
 ```
 
 ### 3. Запустить воспроизведение записи
@@ -46,12 +46,12 @@ python3 main_make_recording.py
 
 Затем воспроизводятся все действия из выбранного файла по очереди.
 ```shell
-python3 main_play_recording.py
+python main_play_recording.py
 ```
 
 Также можно передать имя файла в качестве аргумента
 ```shell
-python3 main_play_recording.py my_recording.json
+python main_play_recording.py my_recording.json
 ```
 
 ---
