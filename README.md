@@ -10,8 +10,8 @@
 # Запуск
 ### 0. Первым делом необходимо установить недостающие библиотеки mouse и keyboard
 ```shell
-python3 -m pip install keyboard
-python3 -m pip install mouse
+python -m pip install keyboard
+python -m pip install mouse
 ```
 
 ### 1. Запустить настройщик кнопок управления
