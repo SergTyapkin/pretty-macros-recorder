@@ -6,6 +6,7 @@ import mouse
 from constants import fileControlsNames
 from utils import *
 from math import exp
+from sys import argv
 
 recording = []
 stop = False
@@ -42,8 +43,11 @@ def getLatestFileNameFrom(path):
 
 if __name__ == '__main__':
     # --- READ RECORDING ---
-    print("Enter recording filename. To use latest hit 'enter'... ")
-    filename = input('recordings/')
+    if  len (sys.argv) <= 1:
+        print("Enter recording filename. To use latest hit 'enter'... ")
+        filename = input('recordings/')
+    else:
+        filename = argv[1]
     if not filename:
         filename = getLatestFileNameFrom('recordings')
         if filename is None:

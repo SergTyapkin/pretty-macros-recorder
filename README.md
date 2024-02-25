@@ -8,12 +8,18 @@
 ![](readme_images/2.gif)
 ---
 # Запуск
+### 0. Первым делом необходимо установить недостающие библиотеки mouse и keyboard
+```shell
+python -m pip install keyboard
+python -m pip install mouse
+```
+
 ### 1. Запустить настройщик кнопок управления
 Здесь можно выбрать, на какие действия во время записи повесить какие горячие клавиши.
 
 После этого конфиг запишется в `UserControls.json`
 ```shell
-python3 main_controls_configure.py
+python main_controls_configure.py
 ```
 
 ### 2. Запустить запись
@@ -31,16 +37,21 @@ python3 main_controls_configure.py
 После этого json-файл с записью будет сохранён в папку `recordings`
 под названием `recording_<дата-и-время-окончания-записи>.json`
 ```shell
-python3 main_make_recording.py
+python main_make_recording.py
 ```
 
 ### 3. Запустить воспроизведение записи
 При запуске программа попросит ввести имя файла из папки `recordings`.
-Если не ввести ничего, будет выбран последний файл по дате создания
+Если не ввести ничего, будет выбран последний файл по дате создания.
 
 Затем воспроизводятся все действия из выбранного файла по очереди.
 ```shell
-python3 main_play_recording.py
+python main_play_recording.py
+```
+
+Также можно передать имя файла в качестве аргумента
+```shell
+python main_play_recording.py my_recording.json
 ```
 
 ---
